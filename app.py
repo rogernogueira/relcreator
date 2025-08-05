@@ -36,8 +36,8 @@ class FileTextExtractor(Toolkit):
 
 agent = Agent(
     name="RelCreator",
-    #model=Ollama(id='qwen3',options={"num_ctx":15000, "top-p":0, "temperature":0.2} ),
-    model=DeepSeek(id='deepseek-chat'),
+    model=Ollama(id='qwen3',options={"num_ctx":15000, "top-p":0, "temperature":0.2} ),
+    #model=DeepSeek(id='deepseek-chat'),
     tools=[FileTextExtractor(base_dir = "data/relatorios")],
     instructions=dedent("""
         1. Use a ferramenta FileTextExtractor para extrair o texto dos arquivos PDF do diretório padrao .
