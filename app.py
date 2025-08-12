@@ -12,6 +12,7 @@ from agno.playground import Playground
 
 load_dotenv()
 directory = "data/relatorios/" 
+
 class FileTextExtractor(Toolkit):
     """A toolkit for extracting text from PDF files in a specified directory."""
     def __init__(self, base_dir, **kwargs):
@@ -36,7 +37,7 @@ class FileTextExtractor(Toolkit):
 
 agent = Agent(
     name="RelCreator",
-    model=Ollama(id='qwen3',options={"num_ctx":15000, "top-p":0, "temperature":0.2} ),
+    model=Ollama(id='qwen2.5',options={"num_ctx":15000, "top-p":0, "temperature":0.2} ),
     #model=DeepSeek(id='deepseek-chat'),
     tools=[FileTextExtractor(base_dir = "data/relatorios")],
     instructions=dedent("""
@@ -44,11 +45,13 @@ agent = Agent(
         2. Analise o texto extraído e crie um relatório com base nas informações contidas nos relatórios.
         3. sempre responda em **português**.
                         """),
+    instructions=dedent(""" Responda em português, com cordialidade """),
     debug_mode=True,
     show_tool_calls=True,
     markdown=True,
 
  )
+
 
 playground  = Playground(agents=[agent])
 app = playground.get_app()
